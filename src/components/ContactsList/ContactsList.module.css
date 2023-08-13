@@ -1,0 +1,14 @@
+.contactsList {
+  
+  margin: 0 auto 20px;
+  max-width: 320px;
+  display: flex;
+  justify-content: center;
+ 
+  gap: 8px;
+  flex-direction: column;
+  
+  border-radius: 5px;
+  padding: 20px;
+  
+}

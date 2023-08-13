@@ -1,0 +1,25 @@
+.filterLabel {
+  margin: 0 auto 20px;
+  max-width: 320px;
+
+  justify-content: center;
+  align-items: flex-start;
+
+  border: 1px solid #ab9e9e;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  font-weight: 700;
+}
+
+.filterInputField {
+  width: 200px;
+  padding: 8px;
+  border: 1px solid #ab9e9e;
+  border-radius: 5px;
+  color: #837c7c;
+  outline-color: #f39c12; /* Yellow Pages - Yellow color */
+}

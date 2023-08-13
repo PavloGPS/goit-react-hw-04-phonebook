@@ -1,0 +1,48 @@
+.createContactForm {
+  margin: 0 auto 20px;
+  max-width: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
+  flex-direction: column;
+  border: 1px solid #ab9e9e;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.formLabel {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  font-weight: 700;
+}
+
+.formInputField {
+  width: 200px;
+  padding: 8px;
+  border: 1px solid #ab9e9e;
+  border-radius: 5px;
+  color: #837c7c;
+  outline-color: #f39c12; /* Yellow Pages - Yellow color */
+}
+
+.submitBtnForm {
+  margin-right: auto;
+  width: 150px;
+  padding: 8px;
+  background-color: #f39c12; /* Yellow Pages - Yellow color */
+  color: #fff;
+  outline-color: #f39c12; /* Yellow Pages - Yellow color */
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.25s ease;
+}
+
+.submitBtnForm:hover,
+.submitBtnForm:focus {
+  background-color: #e67e22; /* Yellow Pages - Darker shade of yellow */
+}
