@@ -1,30 +1,27 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import CreateContactForm from './CreateContactForm/CreateContactForm';
 import ContactsList from './ContactsList/ContactsList';
 import Section from './Section/Section';
 import Filter from './Filter/Filter';
-export class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-  };
-  componentDidMount() {
-    // Loads contacts from localStorage if they exist
+export const App = () => {
+  const [contacts, setContacts] = useState([]);
+  const [filter, setFilter] = useState('');
+
+  // Loads contacts from localStorage on first render if they exist
+  useEffect(() => {
     const savedContacts = localStorage.getItem('contacts');
     if (savedContacts) {
-      this.setState({ contacts: JSON.parse(savedContacts) });
+      setContacts(JSON.parse(savedContacts));
     }
-  }
+  }, []);
+  // Saves contacts to localStorage whenever contacts changes
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
-  componentDidUpdate(prevState) {
-    // Saves contacts to localStorage whenever the state changes
-    if (prevState.contacts !== this.state.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
-    }
-  }
-
-  addContact = newContact => {
-    const nameIsAlreadyInContacts = this.state.contacts.some(
+  // продовжити звідси
+  const addContact = newContact => {
+    const nameIsAlreadyInContacts = contacts.some(
       contact => newContact.name.toLowerCase() === contact.name.toLowerCase()
     );
 
@@ -32,43 +29,39 @@ export class App extends Component {
       alert(`${newContact.name} is already in contacts.`);
       return;
     }
-    this.setState(prevState => ({
-      contacts: [newContact, ...prevState.contacts],
-    }));
+    setContacts(prevState => [newContact, ...prevState]);
   };
 
-  setFilter = e => {
-    this.setState({ filter: e.currentTarget.value.toLocaleLowerCase() });
+  const setFilterValue = e => {
+    setFilter(e.currentTarget.value.toLocaleLowerCase());
   };
 
-  getFilteredContacts = () => {
-    const { filter, contacts } = this.state;
+  const getFilteredContacts = () => {
+    // const { filter, contacts } = this.state;
     return contacts.filter(contact =>
       contact.name.toLocaleLowerCase().includes(filter)
     );
   };
-  removeContact = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
+  const removeContact = contactId => {
+    setContacts(prevState =>
+      prevState.filter(contact => contact.id !== contactId)
+    );
   };
 
-  render() {
-    const { filter } = this.state;
-    const filteredContacts = this.getFilteredContacts();
+  const filteredContacts = getFilteredContacts();
 
-    return (
-      <>
-        <h1 style={{ textAlign: 'center' }}>Phonebook</h1>
-        <CreateContactForm onCreateContact={this.addContact} />
-        <Section title="Contacts">
-          <Filter value={filter} onChangeFilterValue={this.setFilter} />
-          <ContactsList
-            contacts={filteredContacts}
-            onDeleteBtnClick={this.removeContact}
-          />
-        </Section>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <h1 style={{ textAlign: 'center' }}>Phonebook</h1>
+      <CreateContactForm onCreateContact={addContact} />
+      <Section title="Contacts">
+        <Filter value={filter} onChangeFilterValue={setFilterValue} />
+        <ContactsList
+          contacts={filteredContacts}
+          onDeleteBtnClick={removeContact}
+        />
+      </Section>
+    </>
+  );
+};
+// Чомусь очищує локалсторедж
