@@ -4,16 +4,10 @@ import ContactsList from './ContactsList/ContactsList';
 import Section from './Section/Section';
 import Filter from './Filter/Filter';
 export const App = () => {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(() =>
+    JSON.parse(window.localStorage.getItem('contacts') ?? [])
+  );
   const [filter, setFilter] = useState('');
-
-  // Loads contacts from localStorage on first render if they exist
-  useEffect(() => {
-    const savedContacts = localStorage.getItem('contacts');
-    if (savedContacts) {
-      setContacts(JSON.parse(savedContacts));
-    }
-  }, []);
   // Saves contacts to localStorage whenever contacts changes
   useEffect(() => {
     localStorage.setItem('contacts', JSON.stringify(contacts));
